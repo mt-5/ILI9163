@@ -2,6 +2,7 @@
 #include "font.h"
 #include "lcd.h"
 #include "delay.h"
+#include "UART.h"
 
 int main(void){
 
@@ -18,7 +19,13 @@ int main(void){
 
 	LCD.font.data = &FONT_BIG;
 
+	UART_Init();
+
+	LCD_MoveTo(0,0);
+
+
 	while(1){
+		LCD_Char(UART_Recieve());
 	}
 
 

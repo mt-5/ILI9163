@@ -370,6 +370,36 @@ void LCD_Char(char c) {
 	const uint16_t start = 3*8+((c-LCD.font.data[2])*size);
 	uint8_t *bitmap = &LCD.font.data[start/8];
 
+	if(c == 13){
+		LCD.posY+= h;
+		LCD.posX = 0;
+		return;
+	}
+
+	if(c == 8){
+		if(LCD.posX-w < 0){
+			if(LCD.posY - h >= 0){
+				LCD.posY-= h;
+				LCD.posX = LCD_WIDTH - (LCD_WIDTH % w) - w;
+			}
+		}
+		else
+			LCD.posX-= w;
+		LCD_Char(' ');
+		LCD.posX-= w;
+		return;
+	}
+
+	if(LCD.posX+w > LCD_WIDTH){
+		LCD.posX = 0;
+		LCD.posY += h;
+	}
+
+	if(LCD.posY+h > LCD_HEIGHT){
+		LCD.posX = 0;
+		LCD.posY = 0;
+	}
+
 	LCD_CMD;
 	SPI1->DR = LCD_CMD_SET_COLUMN_ADDRESS;
 
@@ -389,6 +419,8 @@ void LCD_Char(char c) {
 	LCD_DATA;
 	SPI1->DR = 0;
 	SPI1->DR = LCD.posY+h-1;
+
+	LCD.posX+= w;
 
 	LCD_CMD;
 	SPI1->DR = LCD_CMD_WRITE_MEMORY_START;
@@ -418,6 +450,5 @@ void LCD_Text(const char *str) {
     unsigned char c;
     while ( (c = *str++) ) {
     	LCD_Char(c);
-		LCD.posX+= LCD.font.data[0];
     }
 }
