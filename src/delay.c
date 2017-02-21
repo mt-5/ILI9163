@@ -9,7 +9,7 @@ void SysTick_Handler()
  timer_ms--;
 }
 
-void delay_ms(int time)
+void delay_ms(uint32_t time)
 {
  timer_ms = time;
  while (timer_ms);

@@ -8,6 +8,8 @@
 #ifndef DELAY_H_
 #define DELAY_H_
 
-extern void delay_ms(int time);
+#include <stdint.h>
+
+extern void delay_ms(uint32_t time);
 
 #endif /* DELAY_H_ */

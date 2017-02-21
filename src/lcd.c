@@ -362,10 +362,6 @@ void LCD_Circle(uint8_t x, uint8_t y, uint8_t r){
 	}
 }
 
-uint8_t roundToByte(uint8_t n){
-	return (n % 8)? n/8+1 : n/8;
-}
-
 void LCD_Char(char c) {
 	uint16_t n;
 	const uint8_t w = LCD.font.data[0];
@@ -412,12 +408,11 @@ void LCD_Char(char c) {
 		n++;
 
 		if((n % 8 == 0))
-			*bitmap++;
+			bitmap++;
 	}
 
 }
 
-// Plot a string of characters to the LCD: with the current font the screen allows up to 21x16 characters
 void LCD_Text(const char *str) {
 
     unsigned char c;

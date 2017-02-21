@@ -86,6 +86,7 @@
 
 enum LCD_Brush_Style{BS_TRANSPARENT, BS_SOLID, BS_DOTS, BS_STRPIES, BS_DOTSTRIPES};
 enum LCD_Fill_Style{FS_TRANSPARENT, FS_SOLID, FS_DOTS, FS_STRPIES, FS_BACKSTRIPES};
+enum LCD_Align{A_DEFAULT, A_LEFT, A_RIGHT, A_CENTER};
 
 typedef struct {
  	uint16_t color;
@@ -99,7 +100,7 @@ typedef struct{
 }Fill;
 
 typedef struct{
-	uint8_t scale;
+	uint8_t align;
 	uint8_t *data;
 }Font;
 
